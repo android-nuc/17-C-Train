@@ -27,7 +27,104 @@ Book * initSystem()
 	return head ;
 }
 */
+Book * searchBookByKind(Book * head , char * kind)
+{
+	Book * returnP = NULL , *temp = NULL ;
 
+	do
+    {
+       if(strcmp(head->kind,kind)==0)
+       {
+       		//printf("删除OK1\n");
+       		if(temp == NULL)
+       		{
+       			temp = head;
+       			returnP = temp ;
+			}
+			else
+			{
+				temp->next = head ;
+				temp = temp->next ;
+			}
+       		
+	   }
+	  
+    }while(head = head->next);
+    temp->next = NULL ;
+	return returnP ;
+}
+
+Book * deleteBook(Book * head)
+{
+	Book *prev = NULL , *returnP;
+	char name[20];
+	printf("\n输入要删的书的名字\n");
+	scanf("%s",name);
+	returnP = head;
+	do
+    {
+       if(strcmp(head->bookName,name)==0&&(prev == NULL))
+       {
+       		//printf("删除OK1\n");
+       		head = head->next;
+       		break ;
+	   }
+	   if(strcmp(head->bookName,name)==0&&(prev != NULL))
+	   {
+	   		//printf("删除OK2\n");
+       		prev->next = head->next;
+       		break;
+	   }
+	   prev = head ;
+    }while(head = head->next);
+	return returnP ;
+}
+
+Book * addBook(Book *head )
+{
+	char bookName[20] ;
+	char authorName[20] ;
+	int pageNumber ;
+	float price ;
+	char kind[10] ;
+	printf("\n输入书的名字:");
+	scanf("%s",bookName);
+	printf("输入作者的名字:");
+	scanf("%s",authorName);
+	printf("输入书的种类:");
+	scanf("%s",kind);
+	printf("输入书的加格（浮点数）:");
+	scanf("%f",&price);
+	printf("输入书的页数:");
+	scanf("%d",&pageNumber);
+	
+	Book * book = (Book*)malloc(sizeof(Book));
+	strcpy(book->bookName,bookName);
+	strcpy(book->authorName,authorName);
+	strcpy(book->kind,kind);
+	book->price = price ;
+	book->pageNumber = pageNumber ;
+	book->next = head ;
+	
+	return book;
+}
+
+
+void showBookByName(Book * head, char name[])
+{
+	do
+	{
+		if(strcmp(name,head->bookName)==0)
+		{
+			showSelf(*head);
+			break;
+		}
+		if(head->next == NULL)
+		{
+			printf("没有找到\n");
+		}
+	}while(head = head->next);
+}
 
 Book * readDataByTxt()
 {
@@ -80,7 +177,7 @@ Book * readDataByTxt()
 
 void showList(Book *Book)
 {
-	  do
+	do
     {
         printf("%10s   %10s   %10s    %.1f    %4d\n",Book->bookName,Book->authorName,Book->kind,Book->price,Book->pageNumber);
     }while(Book = Book->next);
@@ -100,8 +197,12 @@ void showTitle()
 
 int main()
 {
-	Book * head ;
+	Book * head = NULL , *searchList;
 	int functionCode , temp  ;
+	char input[20];
+	
+	
+
 	/*
 	1、列出当前库存		
 	2、删除一本书			
@@ -133,27 +234,36 @@ int main()
 				printf("\n\n");
 				break;
 			case 2 :
-				printf("\n\n");
-
+				head = deleteBook(head);
+				printf("删除成功\n\n");
 				break;
 			case 3 :
-				printf("\n\n");
+				head = addBook(head);
+				printf("添加成功\n\n");
 				break;
 			case 4 :
+				printf("\n输入需要查找的书的名字:");
+				scanf("%s",input);
 				printf("\n\n");
-				
+				showBookByName(head,input);
+				printf("\n\n");
 				break;
 			case 5 :
+				printf("\n输入需要查找的书的种类:");
+				scanf("%s",input);
 				printf("\n\n");
-				
+				searchList = searchBookByKind(head,input);
+				showList(searchList);
+				printf("\n\n");
 				break;
 			case 6 :
 				showTitle();
 				
 				break;
 			default:
+				printf("\n\n");
 				printf("请输入1~5的数字\n");
-				
+				printf("\n\n");
 				break; 
 		}
 	}
