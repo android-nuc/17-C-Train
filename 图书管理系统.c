@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<string.h>
+
+
 /*
 kind=["math","physics","Chinese","English","computer"]
 */
@@ -195,6 +197,8 @@ void showTitle()
 	printf("*****************************************************************\n\n\n");
 }
 
+
+
 int main()
 {
 	Book * head = NULL , *searchList;
@@ -258,7 +262,6 @@ int main()
 				break;
 			case 6 :
 				showTitle();
-				
 				break;
 			default:
 				printf("\n\n");
