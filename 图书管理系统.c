@@ -67,13 +67,14 @@ Book * deleteBook(Book * head)
     {
        if(strcmp(head->bookName,name)==0&&(prev == NULL))
        {
-       		//printf("删除OK1\n");
+       		printf("删除OK1\n");
        		head = head->next;
+       		returnP = head ;
        		break ;
 	   }
 	   if(strcmp(head->bookName,name)==0&&(prev != NULL))
 	   {
-	   		//printf("删除OK2\n");
+	   		printf("删除OK2\n");
        		prev->next = head->next;
        		break;
 	   }
@@ -193,7 +194,7 @@ void showSelf(Book Book)
 void showTitle()
 {
 	printf("*****************************************************************\n\n");
-	printf("                           图书管理系统\n\n			1、列出当前库存\n			2、删除一本书\n			3、增添一本书\n			4、取出一本书\n			5、搜索\n			6、查看菜单\n\n");
+	printf("                           图书管理系统\n\n			1、列出当前库存\n			2、删除一本书\n			3、增添一本书\n			4、取出一本书\n			5、搜索\n			6、查看菜单\n			7、清屏\n\n");
 	printf("*****************************************************************\n\n\n");
 }
 
@@ -263,9 +264,13 @@ int main()
 			case 6 :
 				showTitle();
 				break;
+			case 7 :
+				system("cls");
+				showTitle();
+				break;
 			default:
 				printf("\n\n");
-				printf("请输入1~5的数字\n");
+				printf("请输入1~7的数字\n");
 				printf("\n\n");
 				break; 
 		}
